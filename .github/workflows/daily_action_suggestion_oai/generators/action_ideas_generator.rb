@@ -9,7 +9,7 @@ class ActionIdeasGenerator < Sublayer::Generators::Base
       { name: "usefulness_score", description: "A score from 1-10 indicating the usefulness of the action with 10 being the best" }
     ]
 
-  def initialize(code_context:, action_code_context:))
+  def initialize(code_context:, action_code_context:)
     @code_context = code_context
     @action_code_context = action_code_context
   end
