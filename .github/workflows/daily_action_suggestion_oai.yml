@@ -1,0 +1,23 @@
+name: daily_action_suggestion_oai
+
+on:
+  workflow_dispatch:
+
+jobs:
+  daily_action_suggestion_oai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: |
+          gem install sublayer octokit
+      - name: Run daily_action_suggestion_oai
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+        run: ruby .github/workflows/daily_action_suggestion_oai/daily_action_suggestion_oai.rb
