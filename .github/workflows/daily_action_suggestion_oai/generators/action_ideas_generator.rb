@@ -9,9 +9,9 @@ class ActionIdeasGenerator < Sublayer::Generators::Base
       { name: "usefulness_score", description: "A score from 1-10 indicating the usefulness of the action with 10 being the best" }
     ]
 
-  def initialize(sublayer_repo_path:, actions_repo_path:)
-    @sublayer_repo_path = sublayer_repo_path
-    @actions_repo_path = actions_repo_path
+  def initialize(code_context:, action_code_context:))
+    @code_context = code_context
+    @action_code_context = action_code_context
   end
 
   def generate
@@ -26,12 +26,12 @@ class ActionIdeasGenerator < Sublayer::Generators::Base
     In the sublayer repo we have examples of using them in tests and you can see the base class.
 
     Sublayer repo contents:
-    #{code_context}
+    #{@code_context}
 
     Below is a repo of existing sublayer actions we've found to be useful in the past.
 
     Existing Sublayer actions:
-    #{action_code_context}
+    #{@action_code_context}
 
     Please generate a list of 5 ideas for new Sublayer actions that would be useful additions to the existing set.
     For each idea, provide:
