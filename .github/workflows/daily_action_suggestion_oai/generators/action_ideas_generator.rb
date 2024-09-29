@@ -42,3 +42,4 @@ class ActionIdeasGenerator < Sublayer::Generators::Base
     Focus on actions that would be generally useful and align well with Sublayer's goals and existing functionality.
     PROMPT
   end
+end
