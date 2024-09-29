@@ -13,8 +13,8 @@ Sublayer.configuration.ai_model = "gpt-4o"
 
 # Add custom Github Action code below:
 
-code_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions/sublayer"
-action_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions/sublayer_actions"
+code_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer"
+action_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions"
 
 code_context = GetContextAction.new(repo_path: code_repo_path).call
 action_code_context = GetContextAction.new(repo_path: action_repo_path).call
@@ -25,7 +25,7 @@ best_idea = sorted_ideas.first
 new_action = ActionGenerator.new(idea: best_idea).generate
 
 branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d")}"
-repo = "sublayerapp/sublayer-actions"
+repo = "sublayerapp/sublayer_actions"
 
 GithubCreateBranchAction.new(
   repo: repo,

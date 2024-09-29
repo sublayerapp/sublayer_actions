@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Current Repository
         uses: actions/checkout@v4.2.0
         with:
-          path: sublayer-actions
+          path: sublayer_actions
       - uses: actions/checkout@v4.2.0
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
