@@ -13,8 +13,8 @@ Sublayer.configuration.ai_model = "gpt-4o"
 
 # Add custom Github Action code below:
 
-code_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer-actions/sublayer"
-action_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer-actions/sublayer-actions"
+code_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions/sublayer"
+action_repo_path = "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions/sublayer_actions"
 
 code_context = GetContextAction.new(repo_path: code_repo_path).call
 action_code_context = GetContextAction.new(repo_path: action_repo_path).call
