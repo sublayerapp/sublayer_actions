@@ -24,7 +24,7 @@ sorted_ideas = action_ideas.sort_by { |idea| idea.usefulness_score.to_i }.revers
 best_idea = sorted_ideas.first
 new_action = ActionGenerator.new(idea: best_idea).generate
 
-branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d:%H:%M:%S")}"
+branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 repo = "sublayerapp/sublayer_actions"
 
 GithubCreateBranchAction.new(
