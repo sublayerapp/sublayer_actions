@@ -27,6 +27,6 @@ jobs:
       - name: Run daily_action_suggestion_oai
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: ruby sublayer_actions/.github/workflows/daily_action_suggestion_oai/daily_action_suggestion_oai.rb
