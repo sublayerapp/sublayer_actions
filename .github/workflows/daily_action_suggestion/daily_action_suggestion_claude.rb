@@ -10,6 +10,7 @@ Dir[File.join(__dir__, "agents", "*.rb")].each { |file| require file }
 
 Sublayer.configuration.ai_provider = Sublayer::Providers::Claude
 Sublayer.configuration.ai_model = "claude-3-5-sonnet-20240620"
+Sublayer.configuration.logger = Sublayer::Logging::DebugLogger.new
 
 # Add custom Github Action code below:
 
