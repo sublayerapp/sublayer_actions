@@ -24,7 +24,7 @@ sorted_ideas = action_ideas.sort_by { |idea| idea.usefulness_score.to_i }.revers
 best_idea = sorted_ideas.first
 new_action = ActionGenerator.new(idea: best_idea).generate
 
-branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d")}"
+branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d:%H:%M:%S")}"
 repo = "sublayerapp/sublayer_actions"
 
 GithubCreateBranchAction.new(
@@ -32,11 +32,6 @@ GithubCreateBranchAction.new(
   base_branch: "main",
   new_branch: branch_name
 ).call
-
-puts "Repo: #{repo}"
-puts "Branch: #{branch_name}"
-puts "Creating new action file: #{new_action.filename}"
-puts "Content: #{new_action.content}"
 
 GithubCreateFileAction.new(
   repo: repo,
