@@ -22,13 +22,17 @@ class ActionIdeasGenerator < Sublayer::Generators::Base
     <<-PROMPT
     You are an AI assistant tasked with generating ideas for new Sublayer actions.
 
-    Sublayer actions are small, reusable units of functionality that can be combined to create more complex workflows.
+    Sublayer actions are small, reusable but very specific units of functionality that can be combined to create more complex workflows.
+
     In the sublayer repo we have examples of using them in tests and you can see the base class.
 
     Sublayer repo contents:
     #{@code_context}
 
     Below is a repo of existing sublayer actions we've found to be useful in the past.
+
+    Note how they are small individual things you want to do with a specific service.
+    The idea is the more specific and single responsibility they are the more easily reuable they are.
 
     Existing Sublayer actions:
     #{@action_code_context}

@@ -2,6 +2,8 @@ name: daily_action_suggestion_claude
 
 on:
   workflow_dispatch:
+  schedule:
+  - cron: '0 10 * * *'
 
 jobs:
   daily_action_suggestion_claude:
