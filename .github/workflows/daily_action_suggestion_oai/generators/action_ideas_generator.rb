@@ -1,7 +1,7 @@
 class ActionIdeasGenerator < Sublayer::Generators::Base
   llm_output_adapter type: :list_of_named_strings,
     name: "action_ideas",
-    description: "List of action ideas with usefulness scores",
+    description: "List of sublayer action ideas with usefulness scores",
     item_name: "idea",
     attributes: [
       { name: "title", description: "The title of the action idea" },
