@@ -29,4 +29,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: ruby sublayer_actions/.github/workflows/daily_action_suggestion_claude/daily_action_suggestion_claude.rb
+        run: ruby sublayer_actions/.github/workflows/daily_action_suggestion/daily_action_suggestion_claude.rb
