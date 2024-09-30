@@ -33,10 +33,15 @@ GithubCreateBranchAction.new(
   new_branch: branch_name
 ).call
 
+puts "Repo: #{repo}"
+puts "Branch: #{branch_name}"
+puts "Creating new action file: #{new_action.filename}"
+puts "Content: #{new_action.content}"
+
 GithubCreateFileAction.new(
   repo: repo,
   branch: branch_name,
-  file_path: new_action.file_path,
+  file_path: new_action.filename,
   file_content: new_action.content
 ).call
 
