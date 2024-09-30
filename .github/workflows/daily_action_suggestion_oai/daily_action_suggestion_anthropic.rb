@@ -8,8 +8,8 @@ Dir[File.join(__dir__, "actions", "*.rb")].each { |file| require file }
 Dir[File.join(__dir__, "generators", "*.rb")].each { |file| require file }
 Dir[File.join(__dir__, "agents", "*.rb")].each { |file| require file }
 
-Sublayer.configuration.ai_provider = Sublayer::Providers::OpenAI
-Sublayer.configuration.ai_model = "gpt-4o-2024-08-06"
+Sublayer.configuration.ai_provider = Sublayer::Providers::Claude
+Sublayer.configuration.ai_model = "claude-3-5-sonnet-20240620"
 
 # Add custom Github Action code below:
 
@@ -23,7 +23,7 @@ action_ideas = ActionIdeasGenerator.new(code_context: code_context, action_code_
 best_idea = action_ideas.sort_by { |idea| idea.usefulness_score.to_i }.reverse.first
 new_action = ActionGenerator.new(idea: best_idea).generate
 
-branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
+branch_name = "daily-action-suggestion-claude-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 repo = "sublayerapp/sublayer_actions"
 
 GithubCreateBranchAction.new( repo: repo, base_branch: "main", new_branch: branch_name).call
