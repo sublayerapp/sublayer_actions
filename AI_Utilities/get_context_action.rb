@@ -1,7 +1,7 @@
-# A Sublayer::Action that generates a concatenated list of files in a directory,
+# Sublayer::Action that generates a concatenated list of files in a directory,
 # respecting a .contextignore file that lists files to ignore.
 #
-# Initialized with a path to the directory to scan.
+# Initialized with a path to the directory to scan and returns the concatenated contents of all files in the directory
 #
 # Example usage: When you want to pass the entire contents of a directory into a Sublayer::Generator for use in a prompt.
 #

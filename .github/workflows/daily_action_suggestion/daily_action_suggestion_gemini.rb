@@ -28,5 +28,5 @@ branch_name = "daily-action-suggestion-gemini-#{Time.now.strftime("%Y-%m-%d-%H-%
 repo = "sublayerapp/sublayer_actions"
 
 GithubCreateBranchAction.new( repo: repo, base_branch: "main", new_branch: branch_name).call
-GithubCreateFileAction.new( repo: repo, branch: branch_name, file_path: new_action.filename, file_content: new_action.content).call
+GithubCreateFileAction.new( repo: repo, branch: branch_name, file_path: new_action.file_path, file_content: new_action.content).call
 GithubCreatePRAction.new( repo: repo, base: "main", head: branch_name, title: best_idea.title, body: best_idea.description).call
