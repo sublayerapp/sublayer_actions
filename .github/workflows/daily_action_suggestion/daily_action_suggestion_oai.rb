@@ -22,7 +22,7 @@ action_code_context = GetContextAction.new(path: action_repo_path).call
 
 action_ideas = ActionIdeasGenerator.new(code_context: code_context, action_code_context: action_code_context).generate
 best_idea = action_ideas.sort_by { |idea| idea.usefulness_score.to_i }.reverse.first
-new_action = ActionGenerator.new(idea: best_idea).generate
+new_action = ActionGenerator.new(idea: best_idea, action_examples: action_code_context).generate
 
 branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 repo = "sublayerapp/sublayer_actions"
