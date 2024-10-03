@@ -9,11 +9,11 @@ class NotionQueryDatabaseAction < Sublayer::Actions::Base
     notion = Notion::Client.new(token: ENV['NOTION_API_KEY'])
 
     begin
-      response = notion.database_query(
-        database_id: @database_id,
-        filter: @filter.empty? ? nil : @filter,
-        sorts: @sorts.empty? ? nil : @sorts
-      )
+      params = { database_id: @database_id }
+      params[:filter] = @filter unless @filter.empty?
+      params[:sorts] = @sorts unless @sorts.empty?
+      
+      response = notion.database_query(query)
 
       response[:results]
     rescue StandardError => e
