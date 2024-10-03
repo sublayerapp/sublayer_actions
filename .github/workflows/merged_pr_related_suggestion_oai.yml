@@ -1,0 +1,43 @@
+name: merged_pr_related_suggestion_oai
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to analyze"
+        required: true
+        type: string
+
+jobs:
+  merged_pr_related_suggestion_oai:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4.2.0
+        with:
+          repository: sublayerapp/sublayer
+          path: sublayer
+          fetch-depth: 0
+      - name: Checkout Current Repository
+        uses: actions/checkout@v4.2.0
+        with:
+          path: sublayer_actions
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: |
+          gem install sublayer octokit
+      - name: Run merged_pr_related_suggestion
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AI_PROVIDER: "openai"
+          AI_MODEL: "gpt-4o-2024-08-06"
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
+        run: ruby .github/workflows/merged_pr_related_suggestion/merged_pr_related_suggestion.rb
