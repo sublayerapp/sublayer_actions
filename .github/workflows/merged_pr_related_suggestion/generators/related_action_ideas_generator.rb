@@ -1,4 +1,4 @@
-class RelatedActionIdeasGeneator < Sublayer::Generators::Base
+class RelatedActionIdeasGenerator < Sublayer::Generators::Base
   llm_output_adapter type: :list_of_named_strings,
     name: "action_ideas",
     description: "List of related Sublayer::Action ideas",
