@@ -40,4 +40,4 @@ jobs:
           AI_PROVIDER: "gemini"
           AI_MODEL: "gemini-1.5-pro-latest"
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
-        run: ruby .github/workflows/merged_pr_related_suggestion/merged_pr_related_suggestion.rb
+        run: ruby sublayer_actions/.github/workflows/merged_pr_related_suggestion/merged_pr_related_suggestion.rb
