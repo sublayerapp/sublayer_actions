@@ -1,0 +1,38 @@
+name: generate_specific_action
+
+on:
+  workflow_dispatch:
+    inputs:
+      action_description:
+        description: "A description of the action to generate"
+        required: true
+        type: string
+
+jobs:
+  generate_specific_action:
+    strategy:
+      matrix:
+        ai_provider: ["openai", "claude", "gemini"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Current Repository
+        uses: actions/checkout@v4.2.0
+        with:
+          path: sublayer_actions
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: |
+          gem install sublayer octokit
+      - name: Run generate_specific_action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+          ACTION_DESCRIPTION: ${{ github.event.inputs.action_description }}
+        run: ruby sublayer_actions/.github/workflows/generate_specific_action/generate_specific_action.rb
