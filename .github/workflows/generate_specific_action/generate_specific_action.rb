@@ -26,7 +26,8 @@ repo = "sublayerapp/sublayer_actions"
 
 existing_actions = GetContextAction.new(path: "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions").call
 
-new_action = ActionGenerator.new(idea: OpenStruct.new(title: ENV["ACTION_DESCRIPTION"], description: ENV["ACTION_DESCRIPTION"]), action_examples: existing_actions).generate
+requested_action = OpenStruct.new(title: ENV["ACTION_NAME"], description: ENV["ACTION_DESCRIPTION"])
+new_action = ActionGenerator.new(idea: requested_action, action_examples: existing_actions).generate
 
 branch_name = "requested-action-#{ENV["AI_PROVIDER"]}-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 
@@ -47,6 +48,6 @@ GithubCreatePRAction.new(
   repo: repo,
   base: "main",
   head: branch_name,
-  title: "New Sublayer::Action: #{new_action.title}",
-  body: new_action.description
+  title: "New Sublayer::Action: #{requested_action.title}",
+  body: requested_action.description
 ).call

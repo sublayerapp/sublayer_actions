@@ -3,6 +3,10 @@ name: generate_specific_action
 on:
   workflow_dispatch:
     inputs:
+      action_name:
+        description: "The name of the action to generate"
+        required: true
+        type: string
       action_description:
         description: "A description of the action to generate"
         required: true
@@ -33,6 +37,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+          AI_PROVIDER: ${{ matrix.ai_provider }}
           ACTION_DESCRIPTION: ${{ github.event.inputs.action_description }}
+          ACTION_NAME: ${{ github.event.inputs.action_name }}
         run: ruby sublayer_actions/.github/workflows/generate_specific_action/generate_specific_action.rb

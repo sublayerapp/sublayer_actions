@@ -35,9 +35,23 @@ new_action = ActionGenerator.new(idea: best_idea, action_examples: existing_acti
 
 branch_name = "pr-related-suggestion-#{pr_number}-#{ENV["AI_PROVIDER"]}-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 
-GithubCreateBranchAction.new(repo: repo, base_branch: "main", new_branch: branch_name).call
+GithubCreateBranchAction.new(
+  repo: repo,
+  base_branch: "main",
+  new_branch: branch_name
+).call
 
-GithubCreateFileAction.new(repo: repo, branch: branch_name, file_path: new_action.file_path, file_content: new_action.content).call
+GithubCreateFileAction.new(
+  repo: repo,
+  branch: branch_name,
+  file_path: new_action.file_path,
+  file_content: new_action.content
+).call
 
-GithubCreatePRAction.new(repo: repo, base: "main", head: branch_name, title: "New Sublayer::Action: #{best_idea.title}", body: best_idea.description).call
-
+GithubCreatePRAction.new(
+  repo: repo,
+  base: "main",
+  head: branch_name,
+  title: "New Sublayer::Action: #{best_idea.title}",
+  body: best_idea.description
+).call
