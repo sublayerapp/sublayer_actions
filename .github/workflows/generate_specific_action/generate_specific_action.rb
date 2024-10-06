@@ -1,4 +1,5 @@
 require "base64"
+require "ostruct"
 
 require "sublayer"
 require "octokit"
@@ -25,7 +26,7 @@ repo = "sublayerapp/sublayer_actions"
 
 existing_actions = GetContextAction.new(path: "#{ENV['GITHUB_WORKSPACE']}/sublayer_actions").call
 
-new_action = ActionGenerator.new(idea: ENV["ACTION_DESCRIPTION"], action_examples: existing_actions).generate
+new_action = ActionGenerator.new(idea: OpenStruct.new(title: ENV["ACTION_DESCRIPTION"], description: ENV["ACTION_DESCRIPTION"]), action_examples: existing_actions).generate
 
 branch_name = "requested-action-#{ENV["AI_PROVIDER"]}-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 
