@@ -1,0 +1,31 @@
+name: merged_pr_discord_notifier
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR to analyze for discord notifications"
+        required: true
+        type: string
+
+jobs:
+  merged_pr_discord_notifier:
+    if: github.event_name == "workflow_dispatch" || (github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'verified')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.0
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: |
+          gem install sublayer octokit
+      - name: Run merged_pr_discord_notifier
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
+        run: ruby .github/workflows/merged_pr_discord_notifier/merged_pr_discord_notifier.rb
