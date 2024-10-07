@@ -19,7 +19,7 @@ pr_number = ENV["PR_NUMBER"]
 pr_changes = GetPRChangesAction.new(repo: repo, pr_number: pr_number).call
 file_info = GetPRFileInfoAction.new(repo: repo, pr_number: pr_number).call
 
-use_cases = SublayerActionUseCaseGenerator.new(pr_changes: pr_changes).call
+use_cases = SublayerActionUseCaseGenerator.new(pr_changes: pr_changes).generate
 
 message = <<~MESSAGE
       🎉 **New Sublayer::Action just merged: #{file_info[:file_name]}**
