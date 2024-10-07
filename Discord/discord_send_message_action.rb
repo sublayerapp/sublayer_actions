@@ -29,15 +29,15 @@ class DiscordSendMessageAction < Sublayer::Actions::Base
       response = http.request(request)
       case response.code.to_i
       when 200..299
-        Sublayer.configuration.logger.info("Message sent successfully to Discord webhook")
+        Sublayer.configuration.logger.log(:info, "Message sent successfully to Discord webhook")
         response.code.to_i
       else
         error_message = "Failed to send message to Discord. HTTP Response Code: #{response.code}"
-        Sublayer.configuration.logger.error(error_message)
+        Sublayer.configuration.logger.log(:error, error_message)
         raise StandardError, error_message
       end
     rescue StandardError => e
-      Sublayer.configuration.logger.error("Error sending Discord message: #{e.message}")
+      Sublayer.configuration.logger.log(:error, "Error sending Discord message: #{e.message}")
       raise e
     end
   end
