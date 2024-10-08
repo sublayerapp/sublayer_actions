@@ -6,7 +6,7 @@ on:
   - cron: '0 10 * * *'
 
 jobs:
-  daily_action_suggestion_oai:
+  daily_action_suggestion:
     strategy:
       matrix:
         ai_provider: ["openai", "claude", "gemini"]
