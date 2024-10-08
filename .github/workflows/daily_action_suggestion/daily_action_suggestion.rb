@@ -8,8 +8,18 @@ Dir[File.join(__dir__, "actions", "*.rb")].each { |file| require file }
 Dir[File.join(__dir__, "generators", "*.rb")].each { |file| require file }
 Dir[File.join(__dir__, "agents", "*.rb")].each { |file| require file }
 
-Sublayer.configuration.ai_provider = Sublayer::Providers::OpenAI
-Sublayer.configuration.ai_model = "gpt-4o-2024-08-06"
+case ENV["AI_PROVIDER"]
+when "openai"
+  Sublayer.configuration.ai_provider = Sublayer::Providers::OpenAI
+  Sublayer.configuration.ai_model = "gpt-4o-2024-08-06"
+when "gemini"
+  Sublayer.configuration.ai_provider = Sublayer::Providers::Gemini
+  Sublayer.configuration.ai_model = "gemini-1.5-pro-latest"
+when "claude"
+  Sublayer.configuration.ai_provider = Sublayer::Providers::Claude
+  Sublayer.configuration.ai_model = "claude-3-5-sonnet-20240620"
+end
+
 Sublayer.configuration.logger = Sublayer::Logging::DebugLogger.new
 
 # Add custom Github Action code below:

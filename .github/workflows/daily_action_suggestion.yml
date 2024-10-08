@@ -1,4 +1,4 @@
-name: daily_action_suggestion_claude
+name: daily_action_suggestion_oai
 
 on:
   workflow_dispatch:
@@ -6,7 +6,10 @@ on:
   - cron: '0 10 * * *'
 
 jobs:
-  daily_action_suggestion_claude:
+  daily_action_suggestion_oai:
+    strategy:
+      matrix:
+        ai_provider: ["openai", "claude", "gemini"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code repository
@@ -26,9 +29,12 @@ jobs:
       - name: Install dependencies
         run: |
           gem install sublayer octokit
-      - name: Run daily_action_suggestion_claude
+      - name: Run daily_action_suggestion_oai
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: ruby sublayer_actions/.github/workflows/daily_action_suggestion/daily_action_suggestion_claude.rb
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: ${{ matrix.ai_provider }}
+        run: ruby sublayer_actions/.github/workflows/daily_action_suggestion/daily_action_suggestion.rb
