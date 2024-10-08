@@ -1,4 +1,4 @@
-name: daily_action_suggestion_oai
+name: daily_action_suggestion
 
 on:
   workflow_dispatch:
