@@ -1,0 +1,30 @@
+name: merged_pr_doc_update
+
+
+# Add a definition of when you want this workflow to trigger here
+#
+# For example, for it to run on every pull request that contains changes to .rb files, use:
+#
+# on:
+#   pull_request:
+#     paths:
+#       - "**/*.rb"
+
+jobs:
+  merged_pr_doc_update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.0
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: |
+          gem install sublayer octokit
+      - name: Run merged_pr_doc_update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+        run: ruby .github/workflows/merged_pr_doc_update/merged_pr_doc_update.rb
