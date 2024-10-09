@@ -34,7 +34,7 @@ action_ideas = ActionIdeasGenerator.new(code_context: code_context, action_code_
 best_idea = action_ideas.sort_by { |idea| idea.usefulness_score.to_i }.reverse.first
 new_action = ActionGenerator.new(idea: best_idea, action_examples: action_code_context).generate
 
-branch_name = "daily-action-suggestion-oai-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
+branch_name = "daily-action-suggestion-#{ENV["AI_PROVIDER"]}-#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}"
 repo = "sublayerapp/sublayer_actions"
 
 GithubCreateBranchAction.new( repo: repo, base_branch: "main", new_branch: branch_name).call
