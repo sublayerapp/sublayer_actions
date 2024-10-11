@@ -18,7 +18,8 @@ class JiraGetProjectIssuesAction < Sublayer::Actions::Base
     @project_key = project_key
     @max_results = max_results
     @start_at = start_at
-    @jql_filter = jql_filter || "project = #{@project_key} AND status = Backlog"
+    @jql_filter = "project = #{@project_key}"
+    @jql_filter = @jql_filter + " && " +jql_filter if jql_filter
     @client = JIRA::Client.new(
       username: ENV['JIRA_USERNAME'],
       password: ENV['JIRA_API_TOKEN'],
