@@ -32,8 +32,8 @@ class JiraCreateIssueAction < Sublayer::Actions::Base
   def call
     begin
       issue = create_issue
-      Sublayer.configuration.logger.log(:info, "Jira issue created successfully: #{issue.key}")
-      issue.key
+      Sublayer.configuration.logger.log(:info, "Jira issue created successfully: #{issue.id}")
+      return issue
     rescue JIRA::HTTPError => e
       error_message = "Error creating Jira issue: #{e.message}"
       Sublayer.configuration.logger.log(:error, error_message)
@@ -44,6 +44,8 @@ class JiraCreateIssueAction < Sublayer::Actions::Base
   private
 
   def create_issue
+    issue = @client.Issue.build
+    
     issue_params = {
       'fields' => {
         'project' => { 'key' => @project_key },
@@ -57,6 +59,7 @@ class JiraCreateIssueAction < Sublayer::Actions::Base
       issue_params['fields'][field_id] = value
     end
 
-    @client.Issue.build(issue_params)
+    issue.save(issue_params)
+    return issue
   end
 end
