@@ -1,4 +1,4 @@
-name: merged_pr_related_suggestion_oai
+name: merged_pr_related_suggestion
 
 on:
   pull_request:
@@ -11,8 +11,11 @@ on:
         type: string
 
 jobs:
-  merged_pr_related_suggestion_oai:
+  merged_pr_related_suggestion:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    strategy:
+      matrix:
+        ai_provider: ["openai", "claude", "gemini"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code repository
@@ -36,8 +39,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          AI_PROVIDER: "openai"
-          AI_MODEL: "gpt-4o-2024-08-06"
+          AI_PROVIDER: ${{ matrix.ai_provider }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
         run: ruby sublayer_actions/.github/workflows/merged_pr_related_suggestion/merged_pr_related_suggestion.rb

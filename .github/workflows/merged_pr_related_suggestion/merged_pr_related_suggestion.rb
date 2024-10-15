@@ -11,10 +11,13 @@ Dir[File.join(__dir__, "agents", "*.rb")].each { |file| require file }
 case ENV["AI_PROVIDER"]
 when "openai"
   Sublayer.configuration.ai_provider = Sublayer::Providers::OpenAI
+  Sublayer.configuration.ai_model = "gpt-4o-2024-08-06"
 when "gemini"
   Sublayer.configuration.ai_provider = Sublayer::Providers::Gemini
+  Sublayer.configuration.ai_model = "gemini-1.5-pro-latest"
 when "claude"
   Sublayer.configuration.ai_provider = Sublayer::Providers::Claude
+  Sublayer.configuration.ai_model = "claude-3-5-sonnet-20240620"
 end
 
 Sublayer.configuration.ai_model = ENV["AI_MODEL"]
