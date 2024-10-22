@@ -55,7 +55,7 @@ new_pr = GithubCreatePRAction.new(
   repo: repo,
   base: "main",
   head: branch_name,
-  title: "New Sublayer::Action: #{best_idea.title}",
+  title: "New Sublayer::Action from #{ENV["AI_PROVIDER"]}: #{best_idea.title}",
   body: best_idea.description
 ).call
 
