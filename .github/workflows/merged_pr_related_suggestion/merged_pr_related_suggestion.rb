@@ -51,10 +51,13 @@ GithubCreateFileAction.new(
   file_content: new_action.content
 ).call
 
-GithubCreatePRAction.new(
+new_pr = GithubCreatePRAction.new(
   repo: repo,
   base: "main",
   head: branch_name,
   title: "New Sublayer::Action: #{best_idea.title}",
   body: best_idea.description
 ).call
+
+GithubAddPRLabelAction.new(repo: repo, pr_number: new_pr.number, label: "ai-generated").call
+GithubAddPRLabelAction.new(repo: repo, pr_number: new_pr.number, label: ENV["AI_PROVIDER"]).call
