@@ -1,4 +1,4 @@
-class GithubGetFileContentsAction < GithubBase
+class GithubGetFileContentsAction < Sublayer::Actions::Base
   def initialize(repo:, branch: "main", file_path:)
     @repo = repo
     @branch = branch
