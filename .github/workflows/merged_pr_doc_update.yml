@@ -34,5 +34,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_ACCESS_TOKEN: ${{ secrets.DOCS_ACCESS_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
 
         run: ruby .github/workflows/merged_pr_doc_update/merged_pr_doc_update.rb
