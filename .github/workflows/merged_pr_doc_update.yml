@@ -1,0 +1,38 @@
+name: merged_pr_doc_update
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR to analyze for doc updates"
+        required: true
+        type: string
+
+jobs:
+  merged_pr_doc_update:
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'ai-generated'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Docs Repository
+        uses: actions/checkout@v4.2.0
+        with:
+          repository: sublayerapp/sublayer_documentation
+          path: docs
+          fetch-depth: 0
+      - uses: actions/checkout@v4.2.0
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: |
+          gem install sublayer octokit
+      - name: Run merged_pr_doc_update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.DOCS_ACCESS_TOKEN }}
+
+        run: ruby .github/workflows/merged_pr_doc_update/merged_pr_doc_update.rb
