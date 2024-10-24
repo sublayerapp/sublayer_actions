@@ -1,8 +1,9 @@
 class GithubGetFileContentsAction < GithubBase
-  def initialize(repo:, branch:, file_path:)
-    super(repo: repo)
+  def initialize(repo:, branch: "main", file_path:)
+    @repo = repo
     @branch = branch
     @file_path = file_path
+    @client = Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
   end
 
   def call
