@@ -12,12 +12,11 @@ class AzureDevopsCreateEpicAction < Sublayer::Actions::Base
   include HTTParty
   format :json
 
-  def initialize(organization:, project:, epic_title:, description: '', area_path: '')
+  def initialize(organization:, project:, epic_title:, description: '')
     @organization = organization
     @project = project
     @epic_title = epic_title
     @description = description
-    @area_path = area_path
     @personal_access_token = ENV['AZURE_DEVOPS_PAT']
   end
 
@@ -36,16 +35,15 @@ class AzureDevopsCreateEpicAction < Sublayer::Actions::Base
   private
 
   def create_epic
-    url = "https://dev.azure.com/#{@organization}/#{@project}/_apis/wit/workitems/$Epic?api-version=6.0"
+    url = "https://dev.azure.com/#{@organization}/#{@project}/_apis/wit/workitems/$Epic?api-version=7.1"
     headers = {
       "Content-Type" => "application/json-patch+json",
-      "Authorization" => "Basic #{Base64.strict_encode64(":") + @personal_access_token}"
+      "Authorization" => "Basic #{Base64.strict_encode64(':' + @personal_access_token)}"
     }
 
     body = [
       { "op" => "add", "path" => "/fields/System.Title", "value" => @epic_title },
-      { "op" => "add", "path" => "/fields/System.Description", "value" => @description },
-      { "op" => "add", "path" => "/fields/System.AreaPath", "value" => @area_path }
+      { "op" => "add", "path" => "/fields/System.Description", "value" => @description }
     ]
 
     response = self.class.post(url, headers: headers, body: body.to_json)
