@@ -20,9 +20,6 @@ when "claude"
   Sublayer.configuration.ai_model = "claude-3-5-sonnet-latest"
 end
 
-Sublayer.configuration.ai_model = ENV["AI_MODEL"]
-Sublayer.configuration.logger = Sublayer::Logging::DebugLogger.new
-
 repo = "sublayerapp/sublayer_actions"
 pr_number = ENV["PR_NUMBER"]
 
